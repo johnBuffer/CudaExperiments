@@ -9,7 +9,7 @@ void checkCudaStatus(cudaError_t status);
 void cudaSetDeviceExcept(uint32_t deviceID);
 
 template<typename T>
-void allocateCudaBuffer(T* ptr, uint32_t size)
+void allocateCudaBuffer(T*& ptr, uint32_t size)
 {
 	// Allocate GPU buffers for three vectors (two input, one output).
 	checkCudaStatus(cudaMalloc((void**)&ptr, size * sizeof(T)));

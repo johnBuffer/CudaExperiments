@@ -21,19 +21,15 @@ cudaError_t addWithCuda(int32_t* c, const int32_t* a, const int32_t* b, uint32_t
 	try {
 		// Choose which GPU to run on, change this on a multi-GPU system.
 		cudaSetDeviceExcept(0);
-		std::cout << "setDevice" << std::endl;
 		// Allocate buffers on GPU
 		allocateCudaBuffer(dev_a, size);
 		allocateCudaBuffer(dev_b, size);
 		allocateCudaBuffer(dev_c, size);
-		std::cout << "alloc" << std::endl;
 		// Copy input vectors from host memory to GPU buffers.
 		hostToDeviceMemcpy(dev_a, a, size);
 		hostToDeviceMemcpy(dev_b, b, size);
-		std::cout << "cpy" << std::endl;
 		// Launch a kernel on the GPU with one thread for each element.
 		addKernel<<<1, size>>>(dev_c, dev_a, dev_b);
-		std::cout << "addKernel" << std::endl;
 		// Check for any errors launching the kernel
 		cudaLastErrorToException();
 		// cudaDeviceSynchronize waits for the kernel to finish, and returns
