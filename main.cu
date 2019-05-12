@@ -1,16 +1,13 @@
-#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
-#include "cuda_helper.hpp"
-#include "kernel.cu"
+#include "kernel.cuh"
 
 #include <iostream>
 
-int32_t main()
+int32_t main(uint32_t argc, char** argv)
 {
-	const int arraySize = 5;
-	const int a[arraySize] = { 1, 2, 3, 4, 5 };
-	const int b[arraySize] = { 10, 20, 30, 40, 50 };
-	int c[arraySize] = { 0 };
+	const uint32_t arraySize = 5;
+	const int32_t a[arraySize] = { 1, 2, 3, 4, 5 };
+	const int32_t b[arraySize] = { 10, 20, 30, 40, 50 };
+	int32_t c[arraySize] = { 0 };
 
 	// Add vectors in parallel.
 	cudaError_t cudaStatus = addWithCuda(c, a, b, arraySize);
